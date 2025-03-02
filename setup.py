@@ -1,29 +1,28 @@
-from setuptools import find_packages, setup
-from glob import glob
+from setuptools import setup
 import os
+from glob import glob
 
 package_name = 'mol_tlx'
 
 setup(
     name=package_name,
     version='0.0.0',
-    packages=find_packages(exclude=['test']),
+    packages=['ros2_py_mol_tlx'],
     data_files=[
-        ('share/ament_index/resource_index/packages',
-            ['resource/' + package_name]),
+        ('share/ament_index/resource_index/packages', ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
-        (os.path.join('share', package_name), glob('launch/*launch.[pxy][yma]*')), 
+        (os.path.join('share', package_name, 'launch'), glob('launch/*.launch.py')),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
-    maintainer='Molnar-Adam',
-    maintainer_email='molnar.a2003@gmail.com',
-    description='Molnar-Adam: Package description',
-    license='GNU General Public License v3.0',
+    maintainer='ajr',
+    maintainer_email='your-email@example.com',
+    description='Your package description',
+    license='Apache License 2.0',
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            # 'control_vehicle = mol_tlx.control_vehicle:main',
+            'squid_game_umbrella_draw = ros2_py_mol_tlx.squid_game_umbrella_draw:main',
         ],
     },
 )
