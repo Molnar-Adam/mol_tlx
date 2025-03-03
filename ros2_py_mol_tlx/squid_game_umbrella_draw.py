@@ -3,34 +3,32 @@ from rclpy.node import Node
 from geometry_msgs.msg import Twist
 import time
 
-class SquidGameUmbrellaDraw(Node):
+class CircleDrawer(Node):
     def __init__(self):
-        super().__init__('squid_game_umbrella_draw')
+        super().__init__('circle_drawer')
         self.publisher = self.create_publisher(Twist, '/turtle1/cmd_vel', 10)
         self.timer = self.create_timer(0.1, self.publish_move)  # Publish every 0.1 seconds
         self.move_cmd = Twist()
 
-        self.get_logger().info("Squid Game Umbrella Draw Node Started")
-        self.draw_umbrella()
+        self.get_logger().info("Circle Drawing Node Started")
+        self.draw_circle()
 
-    def draw_umbrella(self):
-        # Drawing the umbrella
-        self.get_logger().info("Drawing umbrella top (half-circle)")
-        for _ in range(20):
-            self.move_cmd.linear.x = 2.0
-            self.move_cmd.angular.z = 0.35
+    def draw_circle(self):
+        # Define the radius and speed for the circle
+        radius = 2.0  # radius of the circle
+        speed = 1.0   # forward speed
+
+        # Linear and angular velocity to make the turtle draw a circle
+        self.move_cmd.linear.x = speed  # Move forward
+        self.move_cmd.angular.z = speed / radius  # Turn to create a circular path
+
+        self.get_logger().info("Drawing a circle")
+        
+        # Publish the command for 100 steps (can be adjusted for different circle sizes)
+        for _ in range(100):
             self.publisher.publish(self.move_cmd)
             self.get_logger().info(f"Publishing move: linear.x = {self.move_cmd.linear.x}, angular.z = {self.move_cmd.angular.z}")
             time.sleep(0.1)  # Sleep to allow movement
-        
-        self.get_logger().info("Drawing umbrella handle (straight line)")
-        # Move the turtle down to simulate the umbrella handle
-        self.move_cmd.linear.x = -2.0
-        self.move_cmd.angular.z = 0.0
-        for _ in range(10):
-            self.publisher.publish(self.move_cmd)
-            self.get_logger().info(f"Publishing move: linear.x = {self.move_cmd.linear.x}, angular.z = {self.move_cmd.angular.z}")
-            time.sleep(0.1)
 
     def publish_move(self):
         # This method is triggered periodically by the timer
@@ -38,7 +36,7 @@ class SquidGameUmbrellaDraw(Node):
 
 def main(args=None):
     rclpy.init(args=args)
-    node = SquidGameUmbrellaDraw()
+    node = CircleDrawer()
     rclpy.spin(node)
     node.destroy_node()
     rclpy.shutdown()
