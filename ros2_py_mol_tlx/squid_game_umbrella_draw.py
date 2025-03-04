@@ -1,44 +1,63 @@
 import rclpy
 from rclpy.node import Node
 from geometry_msgs.msg import Twist
+import math
 import time
 
-class CircleDrawer(Node):
+class BatmanDraw(Node):
     def __init__(self):
-        super().__init__('circle_drawer')
+        super().__init__('batman_draw')
         self.publisher = self.create_publisher(Twist, '/turtle1/cmd_vel', 10)
-        self.timer = self.create_timer(0.1, self.publish_move)  # Publish every 0.1 seconds
-        self.move_cmd = Twist()
+        self.timer = self.create_timer(0.001, self.loop)
+        self.count = 0
+        self.get_logger().info("Drawing a batman logo to turtlesim.")
+        self.loop()
 
-        self.get_logger().info("Circle Drawing Node Started")
-        self.draw_circle()
+    def publish_message(self, fwd, turn):
+        # Create a Twist message and set the speed and angular velocity
+        msg = Twist()
+        msg.linear.x = fwd
+        msg.angular.z = turn
+        self.count += 1
+        self.get_logger().info(f"Step {self.count}. speed: '{msg.linear.x}' turn: '{msg.angular.z}'")
+        self.publisher.publish(msg)
+        time.sleep(2)  # Delay for 2 seconds
 
-    def draw_circle(self):
-        # Define the radius and speed for the circle
-        radius = 2.0  # radius of the circle
-        speed = 1.0   # forward speed
+    def loop(self):
+        self.get_logger().info("Loop started.")
+        time.sleep(1)  # Initial sleep for 2 seconds
 
-        # Linear and angular velocity to make the turtle draw a circle
-        self.move_cmd.linear.x = speed  # Move forward
-        self.move_cmd.angular.z = speed / radius  # Turn to create a circular path
+        self.publish_message(4.5, 0.0)  # Move forward
+        self.publish_message(0.0, -115 * math.pi / 180)  # Rotate 115 degrees to the right 
+        self.publish_message(1.5, 0.0)  # Move forward
+        self.publish_message(0.0, -67 * math.pi / 180)  # Rotate 65 degrees to the right
+        self.publish_message(1.0, 0.0)  # Move forward
+        for _ in range(12):  # 360 degrees / 10 degrees per step = 36 steps
+            self.publish_message(0.25, 30 * math.pi / 180)  # Move forward and rotate by 10 degrees
+        self.publish_message(5.5, 0.0)  # Move forward
+        for _ in range(12):  # 360 degrees / 10 degrees per step = 36 steps
+            self.publish_message(0.25, 30 * math.pi / 180)  # Move forward and rotate by 10 degrees
+        self.publish_message(1.0, 0.0)  # Move forward
+        self.publish_message(0.0, -93 * math.pi / 180)  # Rotate 65 degrees to the right
+        self.publish_message(1.2, 0.0)  # Move forward
+        self.publish_message(0.0, -math.pi / 2)  # Rotate 90 degrees
+        self.publish_message(2.0, 0.0)  # Move forward
 
-        self.get_logger().info("Drawing a circle")
-        
-        # Publish the command for 100 steps (can be adjusted for different circle sizes)
-        for _ in range(100):
-            self.publisher.publish(self.move_cmd)
-            self.get_logger().info(f"Publishing move: linear.x = {self.move_cmd.linear.x}, angular.z = {self.move_cmd.angular.z}")
-            time.sleep(0.1)  # Sleep to allow movement
 
-    def publish_move(self):
-        # This method is triggered periodically by the timer
-        self.publisher.publish(self.move_cmd)
+
+
+
+
+
+
+
+        self.get_logger().info("Program finished")
+        rclpy.shutdown()
 
 def main(args=None):
     rclpy.init(args=args)
-    node = CircleDrawer()
+    node = BatmanDraw()
     rclpy.spin(node)
-    node.destroy_node()
     rclpy.shutdown()
 
 if __name__ == '__main__':
