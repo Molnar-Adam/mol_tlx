@@ -22,7 +22,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'squid_game_umbrella_draw = ros2_py_mol_tlx.squid_game_umbrella_draw:main',
+            'car_draw = ros2_py_mol_tlx.car_draw:main',
         ],
     },
 )

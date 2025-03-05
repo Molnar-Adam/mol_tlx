@@ -5,8 +5,7 @@ def generate_launch_description():
     return LaunchDescription([
          Node(
             package='mol_tlx',
-            namespace='',
-            executable='squid_game_umbrella_draw',
+            executable='car_draw',
             name='sim2',
             output='screen',  # This will show logs in the terminal
         ),
