@@ -7,13 +7,25 @@ def generate_launch_description():
             package='mol_tlx',
             executable='car_draw',
             name='sim2',
-            output='screen',  # This will show logs in the terminal
+            output='screen', 
         ),
         Node(
             package='turtlesim',
             executable='turtlesim_node',
             name='sim1',
-            output='screen',  # This will show logs in the terminal
+            output='screen', 
+        ),
+         Node(
+            package='mol_tlx',
+            executable='car_publisher', 
+            name='car_publisher',
+            output='screen',
+        ),
+        Node(
+            package='mol_tlx',
+            executable='car_subscriber',
+            name='car_subscriber',
+            output='screen',
         ),
 
     ])

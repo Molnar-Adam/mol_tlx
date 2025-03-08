@@ -4,7 +4,7 @@
   <name>mol_tlx</name>
   <version>0.0.0</version>
   <description>Molnar-Adam: Package description</description>
-  <maintainer email="molnar.a2003@gmail.com">he</maintainer>
+  <maintainer email="molnar.a2003@gmail.com">Molnar-Adam</maintainer>
   <license>GNU General Public License v3.0</license>
 
   <test_depend>ament_copyright</test_depend>
