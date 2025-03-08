@@ -1,5 +1,9 @@
 # `mol_tlx` package
 ROS 2 python package.  [![Static Badge](https://img.shields.io/badge/ROS_2-Humble-34aec5)](https://docs.ros.org/en/humble/)
+
+A package három nodeból áll, ebből egy publisher és egy subscriber node.
+A turtle sim szimulátorban egy autót rajzol ki, miközben a konzolra ír.
+A hirdetett topic geometry_msgs/twist típusú. Megvalósítás ROS 2 Humble alatt.
 ## Packages and build
 
 It is assumed that the workspace is `~/ros2_ws/`.
