@@ -24,7 +24,6 @@ setup(
         'console_scripts': [
             'car_draw = ros2_py_mol_tlx.car_draw:main',
             'car_publisher = ros2_py_mol_tlx.car_publisher:main',
-            'car_subscriber = ros2_py_mol_tlx.car_subscriber:main',
         ],
     },
     

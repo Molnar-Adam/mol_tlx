@@ -21,11 +21,6 @@ def generate_launch_description():
             name='car_publisher',
             output='screen',
         ),
-        Node(
-            package='mol_tlx',
-            executable='car_subscriber',
-            name='car_subscriber',
-            output='screen',
-        ),
+
 
     ])
