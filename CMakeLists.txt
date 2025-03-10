@@ -12,14 +12,13 @@ find_package(geometry_msgs REQUIRED)
 install(
   PROGRAMS
   scripts/car_publisher.py
-  scripts/car_subscriber.py
   scripts/car_draw.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
-# Install launch files
+# Install launch files (Ensure it's in the correct folder)
 install(
-  DIRECTORY launch
+  DIRECTORY launch/
   DESTINATION share/${PROJECT_NAME}/
 )
 
